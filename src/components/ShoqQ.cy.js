@@ -1,5 +1,5 @@
 import ShowQ from "./ShowQ.vue";
-// import { mount } from "cypress/vue"
+
 describe('<ShowQ />', () => {
   beforeEach(() => {
     // see: https://on.cypress.io/mounting-vue
