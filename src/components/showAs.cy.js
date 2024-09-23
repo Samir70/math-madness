@@ -16,4 +16,8 @@ describe('<ShowAs />', () => {
     cy.get("div#answer-3").should('contain', "3")
     cy.get("div#answer-4").should('contain', "4")
   })
+
+  it("emits answer when an answer is clicked", () => {
+
+  })
 })
