@@ -1,15 +1,16 @@
 import ShowAs from "./ShowAs.vue";
 
 describe('<ShowAs />', () => {
-  beforeEach(() => {
-    // see: https://on.cypress.io/mounting-vue
-    cy.mount(ShowAs, { props: { answers: [1, 2, 42, 3, 4] } })
-  })
+  // beforeEach(() => {
+  //   // see: https://on.cypress.io/mounting-vue
+  // })
   it("has a div for the answer options", () => {
+    cy.mount(ShowAs)
     cy.get('div#answer-options').should('exist')
   })
 
   it("has a div for each answer", () => {
+    cy.mount(ShowAs, { props: { answers: [1, 2, 42, 3, 4] } })
     cy.get("div#answer-0").should('contain', "1")
     cy.get("div#answer-1").should('contain', "2")
     cy.get("div#answer-2").should('contain', "42")
@@ -18,6 +19,16 @@ describe('<ShowAs />', () => {
   })
 
   it("emits answer when an answer is clicked", () => {
-
+    const onUserAnsSpy = cy.spy().as('onUserAnsSpy')
+    cy.mount(ShowAs, {
+      props: {
+        answers: [1, 2, 42, 3, 4],
+        onUserAns: onUserAnsSpy
+      }
+    })
+    cy.get("div#answer-0").click()
+    cy.get("@onUserAnsSpy").should("have.been.calledWith", 1)
+    cy.get("div#answer-2").click()
+    cy.get("@onUserAnsSpy").should("have.been.calledWith", 42)
   })
 })
