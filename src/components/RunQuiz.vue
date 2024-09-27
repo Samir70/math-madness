@@ -5,6 +5,8 @@ import ShowAs from "./ShowAs.vue"
 const props = defineProps({
   qList: [Object],
 })
+// There are better ways to shuffle
+// but I could only stub one value of Math.random in Cypress test!!!
 const shuffle = (list) => {
   let len = Math.min(list.length, 6)
   const permutations = [1, 1, 2, 6, 24, 120, 720][len]
@@ -22,7 +24,12 @@ const shuffle = (list) => {
       }
       return true
     })
-  return nums
+  let perm = nums[rndPerm]
+  let out = []
+  for (let p of perm) {
+    out.push(list[Number(p)])
+  }
+  return out
 }
 let qNumber = 0
 const getQDetails = (qNum) => {
@@ -38,7 +45,6 @@ let { curQ, options } = getQDetails(qNumber)
 <template>
   <ShowQ v-bind:question="curQ" />
   <ShowAs v-bind:answers="options" />
-  <p>{{ options.length }} = {{ options.join(",") }}</p>
 </template>
 
 <style>
