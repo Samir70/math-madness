@@ -15,4 +15,8 @@ const props = defineProps({
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+#answer-options {
+  font-size: 3rem;
+}
+</style>
