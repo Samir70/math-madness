@@ -18,7 +18,7 @@ describe('<ShowAs />', () => {
     cy.get("div#answer-4").should('contain', "4")
   })
 
-  it("emits answer when an answer is clicked", () => {
+  it("emits answer submit button clicked", () => {
     const onUserAnsSpy = cy.spy().as('onUserAnsSpy')
     cy.mount(ShowAs, {
       props: {
@@ -27,9 +27,8 @@ describe('<ShowAs />', () => {
       }
     })
     cy.get("div#answer-0").click()
+    cy.get("button#submit-answer").click()
     cy.get("@onUserAnsSpy").should("have.been.calledWith", 1)
-    cy.get("div#answer-2").click()
-    cy.get("@onUserAnsSpy").should("have.been.calledWith", 42)
   })
   it("marks the answer as selected when clicked", () => {
     cy.mount(ShowAs, { props: { answers: [1, 2, 42, 3, 4] } })
