@@ -5,7 +5,7 @@ describe('<ShowAs />', () => {
   //   // see: https://on.cypress.io/mounting-vue
   // })
   it("has a div for the answer options", () => {
-    cy.mount(ShowAs)
+    cy.mount(ShowAs, { props: { answers: [1, 2, 42, 3, 4] } })
     cy.get('div#answer-options').should('exist')
   })
 
@@ -30,5 +30,18 @@ describe('<ShowAs />', () => {
     cy.get("@onUserAnsSpy").should("have.been.calledWith", 1)
     cy.get("div#answer-2").click()
     cy.get("@onUserAnsSpy").should("have.been.calledWith", 42)
+  })
+  it("marks the answer as selected when clicked", () => {
+    cy.mount(ShowAs, { props: { answers: [1, 2, 42, 3, 4] } })
+    cy.get("div#answer-0").click()
+    cy.get("div#answer-0").should("satisfy", ($el) => {
+      const classList = Array.from($el[0].classList)
+      return classList[1] === "mcq-selected"
+    })
+    cy.get("div#answer-1").click()
+    cy.get("div#answer-0").should("satisfy", ($el) => {
+      const classList = Array.from($el[0].classList)
+      return classList[1] === undefined
+    })
   })
 })
