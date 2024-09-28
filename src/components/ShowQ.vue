@@ -13,7 +13,7 @@ const props = defineProps({
 <style scoped>
 #current-q {
   width: 80vw;
-  margin: auto;
+  margin: 0px auto 9px;
   text-align: center;
   padding: 5px;
   border: 1px solid black;
